@@ -33,7 +33,7 @@ import {
 } from '../modules/ui.js';
 import { Eventos } from '../modules/db.js';
 import { navegarA, app as appGlobal, hoyISO, sumarDias, isoADate } from '../modules/router.js';
-import { crearPanelResumenIA } from '../modules/resumen-ia.js';
+// import { crearPanelResumenIA } from '../modules/resumen-ia.js';
 import { crearBloqueExamen } from '../modules/modo-examen.js';
 import { verificarAlerta24h } from '../modules/modo-examen.js';
 
@@ -70,16 +70,16 @@ export async function render(app, contenedor) {
   // Construir el HTML de la vista
   contenedor.innerHTML = '';
 
-  // Panel IA (se genera en paralelo con el render)
-  const panelIA = await crearPanelResumenIA(app.db, app.fechaActiva, app.categorias);
+  // const panelIA = await crearPanelResumenIA(app.db, app.fechaActiva, app.categorias);
 
   // Header de fecha
   const header = construirHeader(app);
   contenedor.appendChild(header);
 
   // Panel IA va entre el header y el timeline
-  contenedor.appendChild(panelIA);
 
+  // contenedor.appendChild(panelIA);
+  
   // Timeline de eventos
   if (eventos.length === 0) {
     contenedor.appendChild(
