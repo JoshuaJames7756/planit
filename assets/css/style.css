@@ -1,0 +1,542 @@
+/* ============================================================
+   PLANIT — style.css
+   Sistema de diseño completo · Dark Academia Tech
+   ============================================================
+   Índice:
+     1.  Variables y tokens
+     2.  Reset y base
+     3.  Tipografía
+     4.  Layout principal
+     5.  Header y nav desktop
+     6.  Nav móvil
+     7.  Botón FAB
+     8.  Vistas
+     9.  Bloques de evento
+    10.  Badges
+    11.  Toasts
+    12.  Modales
+    13.  Skeleton loaders
+    14.  Botones
+    15.  Formularios
+    16.  Estados vacíos y errores
+    17.  Spinner
+    18.  Utilidades
+    19.  Media queries
+   ============================================================ */
+
+/* 1. Variables */
+:root {
+  --color-base:        #0d0f14;
+  --color-superficie:  #141820;
+  --color-borde:       #2a3040;
+  --color-borde-hover: #3a4255;
+  --acento-cian:       #00ffc8;
+  --acento-purpura:    #b060ff;
+  --acento-verde:      #7de06e;
+  --acento-ambar:      #f0b429;
+  --texto-primario:    #d0dcea;
+  --texto-secundario:  #8a9bb0;
+  --texto-terciario:   #5a6a7e;
+  --texto-desactivado: #3a4a5e;
+  --fuente-sans:  'Archivo', system-ui, sans-serif;
+  --fuente-mono:  'Space Mono', 'Courier New', monospace;
+  --texto-xs:  11px;
+  --texto-sm:  13px;
+  --texto-md:  15px;
+  --texto-lg:  18px;
+  --texto-xl:  24px;
+  --texto-2xl: 32px;
+  --espacio-1:  4px;  --espacio-2:  8px;  --espacio-3:  12px;
+  --espacio-4:  16px; --espacio-5:  20px; --espacio-6:  24px;
+  --espacio-8:  32px; --espacio-10: 40px;
+  --radio-sm: 4px; --radio-md: 8px; --radio-lg: 12px;
+  --radio-xl: 16px; --radio-pill: 999px;
+  --trans-rapida: 0.12s ease;
+  --trans-normal: 0.22s ease;
+  --trans-lenta:  0.35s ease;
+  --alto-header:     60px;
+  --alto-nav-mobile: 64px;
+}
+
+/* 2. Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  font-family: var(--fuente-sans);
+  font-size: var(--texto-md);
+  color: var(--texto-primario);
+  background-color: var(--color-base);
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%2300ffc2' stroke-opacity='0.03' stroke-width='0.5'%3E%3Cpath d='M0 0h40M0 40h40M0 0v40M40 0v40'/%3E%3C/g%3E%3C/svg%3E");
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar       { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-borde); border-radius: var(--radio-pill); }
+::selection { background: color-mix(in srgb, var(--acento-cian) 30%, transparent); color: var(--texto-primario); }
+:focus-visible { outline: 2px solid var(--acento-cian); outline-offset: 2px; border-radius: var(--radio-sm); }
+img, svg { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+a { color: var(--acento-cian); text-decoration: none; }
+
+/* 3. Tipografía */
+h1,h2,h3,h4,h5,h6 { font-weight: 500; line-height: 1.25; color: var(--texto-primario); }
+h1 { font-size: var(--texto-2xl); }
+h2 { font-size: var(--texto-xl);  }
+h3 { font-size: var(--texto-lg);  }
+h4 { font-size: var(--texto-md);  }
+p  { line-height: 1.65; color: var(--texto-secundario); }
+.mono { font-family: var(--fuente-mono); }
+.planit-label {
+  font-family: var(--fuente-mono);
+  font-size: var(--texto-xs);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--texto-terciario);
+}
+
+/* 4. Layout */
+#planit-app {
+  display: grid;
+  grid-template-rows: var(--alto-header) 1fr;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* 5. Header y nav desktop */
+.planit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--espacio-6);
+  background: color-mix(in srgb, var(--color-base) 85%, transparent);
+  border-bottom: 0.5px solid var(--color-borde);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  gap: var(--espacio-4);
+}
+.planit-header__marca { display: flex; align-items: baseline; gap: var(--espacio-4); flex-shrink: 0; }
+.planit-header__logo  { font-family: var(--fuente-mono); font-size: var(--texto-lg); font-weight: 700; letter-spacing: -0.5px; }
+.planit-header__logo-acento { color: var(--acento-cian); }
+.planit-header__fecha { font-family: var(--fuente-mono); font-size: var(--texto-xs); color: var(--texto-terciario); letter-spacing: 1px; }
+.planit-nav { display: flex; align-items: center; gap: var(--espacio-1); }
+.planit-nav__item {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: var(--espacio-2) var(--espacio-3);
+  border-radius: var(--radio-md);
+  color: var(--texto-terciario);
+  font-size: var(--texto-xs);
+  letter-spacing: 0.5px;
+  transition: color var(--trans-rapida), background var(--trans-rapida);
+  white-space: nowrap;
+}
+.planit-nav__item:hover { color: var(--texto-secundario); background: color-mix(in srgb, var(--texto-primario) 5%, transparent); }
+.planit-nav__item.activo { color: var(--acento-cian); background: color-mix(in srgb, var(--acento-cian) 8%, transparent); }
+.planit-nav__icono { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* 6. Nav móvil */
+.planit-nav-mobile {
+  display: none; /* se activa en el media query */
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--alto-nav-mobile);
+  background: color-mix(in srgb, var(--color-superficie) 95%, transparent);
+  border-top: 0.5px solid var(--color-borde);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 100;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 var(--espacio-2);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Cada ítem ocupa espacio igual y no se desborda */
+.planit-nav-mobile .planit-nav__item {
+  flex: 1;
+  min-width: 0;
+  padding: var(--espacio-2) var(--espacio-1);
+  font-size: 10px;
+}
+
+/* Texto del ítem: no desborda en pantallas pequeñas */
+.planit-nav-mobile .planit-nav__item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Hueco central para el FAB — mismo flex:1 que los ítems */
+.planit-nav-mobile__fab-placeholder {
+  flex: 1;
+  min-width: 52px;
+  max-width: 72px;
+  pointer-events: none;
+}
+
+/* 7. Botón FAB */
+.planit-btn-fab {
+  width: 44px; height: 44px;
+  border-radius: var(--radio-pill);
+  background: var(--acento-cian);
+  color: var(--color-base);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--trans-rapida), background var(--trans-rapida);
+}
+.planit-btn-fab svg { width: 20px; height: 20px; }
+.planit-btn-fab:hover  { transform: scale(1.08); background: color-mix(in srgb, var(--acento-cian) 85%, #fff); }
+.planit-btn-fab:active { transform: scale(0.96); }
+
+/*
+  FAB MÓVIL — flota sobre la nav inferior, centrado horizontalmente.
+  Por defecto está oculto; el media query lo muestra en ≤768px.
+*/
+.planit-btn-fab--mobile {
+  display: none; /* oculto en desktop */
+  position: fixed;
+  bottom: calc(var(--alto-nav-mobile) - 26px); /* mitad sobresale de la nav */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 52px;
+  z-index: 110; /* por encima de la nav */
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--acento-cian) 35%, transparent);
+}
+.planit-btn-fab--mobile:hover  { transform: translateX(-50%) scale(1.08); }
+.planit-btn-fab--mobile:active { transform: translateX(-50%) scale(0.95); }
+
+/* 8. Vistas */
+.planit-vista {
+  grid-row: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--espacio-6);
+  padding-bottom: calc(var(--espacio-6) + env(safe-area-inset-bottom));
+}
+
+.planit-vista--mes {
+  padding-left: var(--espacio-3);
+  padding-right: var(--espacio-3);
+}
+
+.planit-vista-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--espacio-6); flex-wrap: wrap; gap: var(--espacio-3);
+}
+.planit-vista-titulo { font-family: var(--fuente-mono); font-size: var(--texto-lg); font-weight: 700; }
+.planit-nav-fecha { display: flex; align-items: center; gap: var(--espacio-2); }
+.planit-nav-fecha__btn {
+  width: 32px; height: 32px;
+  border-radius: var(--radio-md);
+  border: 0.5px solid var(--color-borde);
+  color: var(--texto-secundario);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color var(--trans-rapida), color var(--trans-rapida);
+}
+.planit-nav-fecha__btn:hover  { border-color: var(--acento-cian); color: var(--acento-cian); }
+.planit-nav-fecha__hoy {
+  font-family: var(--fuente-mono); font-size: var(--texto-xs); letter-spacing: 1px;
+  padding: var(--espacio-1) var(--espacio-3);
+  border-radius: var(--radio-md); border: 0.5px solid var(--color-borde); color: var(--texto-terciario);
+  transition: border-color var(--trans-rapida), color var(--trans-rapida);
+}
+.planit-nav-fecha__hoy:hover { border-color: var(--acento-cian); color: var(--acento-cian); }
+
+/* 9. Bloques de evento */
+.planit-timeline { display: flex; flex-direction: column; gap: var(--espacio-2); }
+.planit-timeline__hora {
+  font-family: var(--fuente-mono); font-size: var(--texto-xs); color: var(--texto-desactivado);
+  letter-spacing: 1px; padding: var(--espacio-2) 0 var(--espacio-1);
+  border-top: 0.5px solid var(--color-borde); margin-top: var(--espacio-2);
+}
+.planit-evento {
+  display: flex; align-items: stretch;
+  background: var(--color-superficie);
+  border: 0.5px solid var(--color-borde);
+  border-radius: var(--radio-lg);
+  overflow: hidden; cursor: pointer;
+  transition: border-color var(--trans-rapida), transform var(--trans-rapida);
+  position: relative;
+}
+.planit-evento:hover { border-color: var(--evento-color, var(--acento-cian)); transform: translateX(2px); }
+.planit-evento__franja { width: 3px; flex-shrink: 0; background: var(--evento-color, var(--acento-cian)); }
+.planit-evento__cuerpo { padding: var(--espacio-3) var(--espacio-4); flex: 1; min-width: 0; }
+.planit-evento__hora {
+  font-family: var(--fuente-mono); font-size: var(--texto-xs); color: var(--texto-terciario);
+  letter-spacing: 0.5px; display: block; margin-bottom: 3px;
+}
+.planit-evento__titulo { font-size: var(--texto-md); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.planit-evento__tag-u {
+  position: absolute; top: var(--espacio-2); right: var(--espacio-3);
+  font-family: var(--fuente-mono); font-size: 9px; font-weight: 700;
+  color: var(--acento-purpura);
+  background: color-mix(in srgb, var(--acento-purpura) 12%, transparent);
+  border: 0.5px solid color-mix(in srgb, var(--acento-purpura) 30%, transparent);
+  border-radius: var(--radio-sm); padding: 1px 5px; letter-spacing: 1px;
+}
+.planit-evento--virtual { border-style: dashed; }
+
+/* 10. Badges */
+.planit-badge-categoria {
+  display: inline-block; font-size: var(--texto-xs);
+  padding: 2px var(--espacio-2); border-radius: var(--radio-pill);
+  background: color-mix(in srgb, var(--badge-color, var(--acento-cian)) 12%, transparent);
+  border: 0.5px solid color-mix(in srgb, var(--badge-color, var(--acento-cian)) 30%, transparent);
+  color: var(--badge-color, var(--acento-cian));
+  font-family: var(--fuente-mono); letter-spacing: 0.5px; margin-top: var(--espacio-1);
+}
+.planit-badge-prioridad { font-family: var(--fuente-mono); font-size: var(--texto-xs); padding: 2px var(--espacio-2); border-radius: var(--radio-pill); letter-spacing: 0.5px; }
+.planit-badge-prioridad--alta  { color: #f09595; background: #f0959520; border: 0.5px solid #f0959540; }
+.planit-badge-prioridad--media { color: var(--acento-ambar); background: #f0b42920; border: 0.5px solid #f0b42940; }
+.planit-badge-prioridad--baja  { color: var(--texto-terciario); background: transparent; border: 0.5px solid var(--color-borde); }
+.planit-badge-estado { font-family: var(--fuente-mono); font-size: var(--texto-xs); padding: 2px var(--espacio-2); border-radius: var(--radio-sm); letter-spacing: 0.5px; }
+.planit-badge-estado--pendiente { color: var(--acento-cian);    background: #00ffc815; border: 0.5px solid #00ffc830; }
+.planit-badge-estado--progreso  { color: var(--acento-purpura); background: #b060ff15; border: 0.5px solid #b060ff30; }
+.planit-badge-estado--listo     { color: var(--acento-verde);   background: #7de06e15; border: 0.5px solid #7de06e30; }
+
+/* 11. Toasts */
+#planit-toasts {
+  position: fixed;
+  bottom: calc(var(--espacio-6) + env(safe-area-inset-bottom));
+  right: var(--espacio-6); z-index: 500;
+  display: flex; flex-direction: column; gap: var(--espacio-2);
+  max-width: 340px; pointer-events: none;
+}
+.planit-toast {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--espacio-3); padding: var(--espacio-3) var(--espacio-4);
+  background: var(--color-superficie); border: 0.5px solid var(--color-borde);
+  border-radius: var(--radio-lg); font-size: var(--texto-sm); color: var(--texto-primario);
+  pointer-events: all; opacity: 0; transform: translateY(8px);
+  transition: opacity var(--trans-normal), transform var(--trans-normal);
+}
+.planit-toast--visible { opacity: 1; transform: translateY(0); }
+.planit-toast--info    { border-left: 2px solid var(--acento-cian);   }
+.planit-toast--exito   { border-left: 2px solid var(--acento-verde);  }
+.planit-toast--error   { border-left: 2px solid #f09595;              }
+.planit-toast--aviso   { border-left: 2px solid var(--acento-ambar);  }
+.planit-toast__cerrar  { font-size: var(--texto-lg); color: var(--texto-terciario); line-height: 1; padding: 0 var(--espacio-1); flex-shrink: 0; transition: color var(--trans-rapida); }
+.planit-toast__cerrar:hover { color: var(--texto-primario); }
+
+/* 12. Modales */
+.planit-modal-overlay {
+  position: fixed; inset: 0;
+  background: color-mix(in srgb, var(--color-base) 70%, transparent);
+  backdrop-filter: blur(4px);
+  z-index: 200; display: flex; align-items: center; justify-content: center;
+  padding: var(--espacio-4); opacity: 0; transition: opacity var(--trans-normal);
+}
+.planit-modal-overlay--visible { opacity: 1; }
+
+.planit-modal {
+  background: var(--color-superficie); border: 0.5px solid var(--color-borde);
+  border-radius: var(--radio-xl); padding: var(--espacio-6);
+  width: 100%; max-width: 420px;
+  transform: translateY(8px); transition: transform var(--trans-normal);
+}
+.planit-modal-overlay--visible .planit-modal { transform: translateY(0); }
+
+.planit-modal__titulo {
+  font-size: var(--texto-lg); margin-bottom: var(--espacio-4);
+  padding-bottom: var(--espacio-4); border-bottom: 0.5px solid var(--color-borde);
+}
+
+/* Modal formulario: altura limitada + scroll interno */
+.planit-modal--formulario {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  padding-bottom: 0;
+}
+.planit-modal--formulario .planit-modal__titulo {
+  flex-shrink: 0;
+}
+.planit-modal--formulario .planit-modal__cuerpo {
+  overflow-y: auto;
+  flex: 1;
+  padding-bottom: var(--espacio-4);
+}
+.planit-modal--formulario .planit-modal__acciones {
+  flex-shrink: 0;
+  padding-top: var(--espacio-4);
+  border-top: 0.5px solid var(--color-borde);
+}
+
+.planit-modal__acciones { display: flex; justify-content: flex-end; gap: var(--espacio-3); }
+
+/* 13. Skeletons */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.planit-skeleton {
+  background: linear-gradient(90deg, var(--color-superficie) 25%, color-mix(in srgb, var(--color-superficie) 70%, var(--color-borde)) 50%, var(--color-superficie) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: var(--radio-md);
+}
+@media (prefers-reduced-motion: reduce) { .planit-skeleton { animation: none; opacity: 0.5; } }
+.planit-skeleton--header      { height: 28px; width: 60%; margin-bottom: var(--espacio-6); }
+.planit-skeleton--evento      { height: 68px; margin-bottom: var(--espacio-2); border-radius: var(--radio-lg); }
+.planit-skeleton--grid-semana { height: 280px; }
+.planit-skeleton--grid-mes    { height: 360px; }
+.planit-skeleton--linea       { height: 16px; flex: 1; }
+.planit-skeleton--dot         { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.planit-skeleton-fila         { display: flex; align-items: center; gap: var(--espacio-3); margin-bottom: var(--espacio-3); }
+.planit-cargando              { display: flex; align-items: center; justify-content: center; padding: var(--espacio-10); }
+
+/* 14. Botones */
+.planit-btn {
+  display: inline-flex; align-items: center; gap: var(--espacio-2);
+  padding: var(--espacio-2) var(--espacio-4);
+  border-radius: var(--radio-md); font-family: var(--fuente-sans);
+  font-size: var(--texto-sm); font-weight: 500; border: 0.5px solid transparent;
+  transition: background var(--trans-rapida), border-color var(--trans-rapida), transform var(--trans-rapida);
+  white-space: nowrap;
+}
+.planit-btn:active { transform: scale(0.97); }
+.planit-btn--primario        { background: var(--acento-cian); color: var(--color-base); border-color: var(--acento-cian); }
+.planit-btn--primario:hover  { background: color-mix(in srgb, var(--acento-cian) 85%, #fff); }
+.planit-btn--secundario      { background: transparent; color: var(--texto-secundario); border-color: var(--color-borde); }
+.planit-btn--secundario:hover { background: color-mix(in srgb, var(--texto-primario) 5%, transparent); border-color: var(--color-borde-hover); color: var(--texto-primario); }
+.planit-btn--peligro         { background: transparent; color: #f09595; border-color: #f0959550; }
+.planit-btn--peligro:hover   { background: #f0959515; border-color: #f09595; }
+.planit-btn--ghost           { background: transparent; color: var(--acento-cian); border-color: color-mix(in srgb, var(--acento-cian) 30%, transparent); }
+.planit-btn--ghost:hover     { background: color-mix(in srgb, var(--acento-cian) 8%, transparent); }
+.planit-btn--sm { font-size: var(--texto-xs); padding: var(--espacio-1) var(--espacio-3); }
+.planit-btn--lg { font-size: var(--texto-md); padding: var(--espacio-3) var(--espacio-6); border-radius: var(--radio-lg); }
+
+/* 15. Formularios */
+.planit-form        { display: flex; flex-direction: column; gap: var(--espacio-4); }
+.planit-campo       { display: flex; flex-direction: column; gap: var(--espacio-2); }
+.planit-campo label { font-size: var(--texto-sm); color: var(--texto-secundario); font-weight: 500; }
+.planit-campo input,
+.planit-campo select,
+.planit-campo textarea {
+  font-family: var(--fuente-sans); font-size: var(--texto-md);
+  color: var(--texto-primario);
+  background: color-mix(in srgb, var(--color-base) 60%, transparent);
+  border: 0.5px solid var(--color-borde); border-radius: var(--radio-md);
+  padding: var(--espacio-3) var(--espacio-4);
+  transition: border-color var(--trans-rapida); width: 100%;
+}
+.planit-campo input:focus,
+.planit-campo select:focus,
+.planit-campo textarea:focus { outline: none; border-color: var(--acento-cian); }
+.planit-campo textarea { min-height: 80px; resize: vertical; }
+.planit-campo select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6a7e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right var(--espacio-4) center;
+  padding-right: var(--espacio-8); cursor: pointer;
+}
+.planit-form__fila { display: grid; grid-template-columns: 1fr 1fr; gap: var(--espacio-4); }
+.planit-checkbox { display: flex; align-items: center; gap: var(--espacio-3); cursor: pointer; font-size: var(--texto-md); color: var(--texto-secundario); }
+.planit-checkbox input[type="checkbox"] {
+  width: 18px; height: 18px; appearance: none;
+  border: 1.5px solid var(--color-borde-hover); border-radius: var(--radio-sm);
+  background: transparent; cursor: pointer; flex-shrink: 0;
+  transition: border-color var(--trans-rapida), background var(--trans-rapida); position: relative;
+}
+.planit-checkbox input[type="checkbox"]:checked { background: var(--acento-cian); border-color: var(--acento-cian); }
+.planit-checkbox input[type="checkbox"]:checked::after {
+  content: ''; position: absolute; top: 2px; left: 5px;
+  width: 5px; height: 9px; border: 2px solid var(--color-base);
+  border-top: none; border-left: none; transform: rotate(40deg);
+}
+.planit-dias-semana { display: flex; gap: var(--espacio-2); flex-wrap: wrap; }
+.planit-dia-btn {
+  width: 36px; height: 36px; border-radius: var(--radio-pill);
+  border: 0.5px solid var(--color-borde); font-family: var(--fuente-mono);
+  font-size: var(--texto-xs); color: var(--texto-terciario);
+  transition: all var(--trans-rapida); display: flex; align-items: center; justify-content: center;
+}
+.planit-dia-btn:hover  { border-color: var(--acento-purpura); color: var(--acento-purpura); }
+.planit-dia-btn.activo { background: var(--acento-purpura); border-color: var(--acento-purpura); color: var(--color-base); }
+
+/* 16. Estados vacíos y errores */
+.planit-vacio { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--espacio-10) var(--espacio-6); text-align: center; gap: var(--espacio-4); }
+.planit-vacio__mensaje { font-size: var(--texto-md); color: var(--texto-terciario); }
+.planit-error-vista, .planit-error-critico { display: flex; flex-direction: column; align-items: center; gap: var(--espacio-4); padding: var(--espacio-10); text-align: center; }
+.planit-error-critico h2      { color: #f09595; font-family: var(--fuente-mono); }
+.planit-error-critico details { font-family: var(--fuente-mono); font-size: var(--texto-xs); color: var(--texto-terciario); background: var(--color-superficie); padding: var(--espacio-3); border-radius: var(--radio-md); max-width: 400px; text-align: left; }
+
+/* 17. Spinner */
+.planit-cargando-inicial { display: flex; align-items: center; justify-content: center; height: 100%; min-height: 200px; }
+@keyframes girar { to { transform: rotate(360deg); } }
+.planit-spinner { width: 28px; height: 28px; border: 2px solid var(--color-borde); border-top-color: var(--acento-cian); border-radius: 50%; animation: girar 0.8s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .planit-spinner { animation: none; opacity: 0.5; } }
+
+/* 18. Utilidades */
+.planit-card    { background: var(--color-superficie); border: 0.5px solid var(--color-borde); border-radius: var(--radio-lg); padding: var(--espacio-4) var(--espacio-5); }
+.planit-divider { border: none; border-top: 0.5px solid var(--color-borde); margin: var(--espacio-4) 0; }
+.truncar        { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-only        { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.scroll-x       { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+.planit-vista-mes-wrap { width: 100%; display: block; }
+
+/* Selector tipo evento/examen */
+.planit-tipo-btn {
+  flex: 1; padding: var(--espacio-2) var(--espacio-3);
+  border-radius: var(--radio-md);
+  border: 0.5px solid var(--color-borde);
+  font-size: var(--texto-sm); color: var(--texto-terciario);
+  transition: all var(--trans-rapida); cursor: pointer;
+  background: transparent;
+}
+.planit-tipo-btn:hover { border-color: var(--acento-cian); color: var(--texto-primario); }
+.planit-tipo-btn.activo {
+  border-color: var(--acento-cian);
+  background: color-mix(in srgb, var(--acento-cian) 10%, transparent);
+  color: var(--acento-cian); font-weight: 500;
+}
+
+/* 19. Media queries */
+@media (max-width: 768px) {
+  /* Layout: añade fila para nav móvil */
+  #planit-app { grid-template-rows: var(--alto-header) 1fr var(--alto-nav-mobile); }
+
+  /* Ocultar nav desktop y FAB del header */
+  .planit-nav                    { display: none; }
+  .planit-header .planit-btn-fab { display: none; }
+  .planit-header                 { padding: 0 var(--espacio-4); }
+  .planit-header__fecha          { display: none; }
+
+  /* Mostrar nav móvil */
+  .planit-nav-mobile { display: flex; }
+
+  /* Mostrar FAB móvil independiente */
+  .planit-btn-fab--mobile { display: flex; }
+
+  /* Vista: padding inferior para que no tape la nav + FAB */
+  .planit-vista {
+    padding: var(--espacio-4);
+    padding-bottom: calc(var(--alto-nav-mobile) + var(--espacio-6));
+  }
+
+  /* Toasts: suben sobre la nav */
+  #planit-toasts {
+    bottom: calc(var(--alto-nav-mobile) + var(--espacio-4));
+    right: var(--espacio-4); left: var(--espacio-4);
+    max-width: none;
+  }
+
+  /* Formularios: una columna en móvil */
+  .planit-form__fila { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet: ocultar texto de nav, solo íconos */
+  .planit-nav__item span { display: none; }
+  .planit-nav__item      { padding: var(--espacio-2); }
+}
+
+@media (min-width: 1280px) {
+  .planit-vista { max-width: 1100px; margin: 0 auto; }
+}

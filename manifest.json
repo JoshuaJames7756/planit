@@ -1,0 +1,84 @@
+{
+  "name": "PLANIT — Tu tiempo, bajo control",
+  "short_name": "PLANIT",
+  "description": "Gestión de horarios y planificación local-first. Sin servidores, sin suscripciones.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#0d0f14",
+  "background_color": "#0d0f14",
+  "lang": "es",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities", "education"],
+
+  "icons": [
+    {
+      "src": "/assets/img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/icons/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/img/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Agenda de hoy",
+      "short_name": "Agenda",
+      "description": "Ver los eventos de hoy",
+      "url": "/#/agenda",
+      "icons": [{ "src": "/assets/img/icons/shortcut-agenda.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Nueva tarea",
+      "short_name": "Tarea",
+      "description": "Crear una nueva tarea rápida",
+      "url": "/#/tareas",
+      "icons": [{ "src": "/assets/img/icons/shortcut-tarea.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Horario universitario",
+      "short_name": "Universidad",
+      "description": "Ver el horario de clases",
+      "url": "/#/horario-u",
+      "icons": [{ "src": "/assets/img/icons/shortcut-u.png", "sizes": "96x96" }]
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/assets/img/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Vista de agenda en móvil"
+    },
+    {
+      "src": "/assets/img/screenshot-desktop.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Vista de calendario mensual en desktop"
+    }
+  ],
+
+  "prefer_related_applications": false
+}

@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/ia.js": {
+      "maxDuration": 30
+    }
+  }
+}

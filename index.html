@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- ═══════════════════════════════════════════
+       PLANIT — index.html
+       Estructura base de la aplicación (SPA)
+       ═══════════════════════════════════════════ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- ── Identidad ──────────────────────────────── -->
+  <title>PLANIT — Tu tiempo, bajo control</title>
+  <meta name="description" content="Gestión de horarios y planificación local-first. Sin servidores, sin suscripciones." />
+  <meta name="author" content="JVSoftware" />
+
+  <!-- ── SEO técnico ────────────────────────────── -->
+  <link rel="canonical" href="https://planit.app/" />
+
+  <!-- ── Open Graph ─────────────────────────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="PLANIT — Tu tiempo, bajo control" />
+  <meta property="og:description" content="Gestión de horarios local-first. Sin servidores, sin suscripciones." />
+  <meta property="og:image"       content="/assets/img/og-image.png" />
+  <meta property="og:url"         content="https://planit.app/" />
+
+  <!-- ── Twitter Card ───────────────────────────── -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="PLANIT" />
+  <meta name="twitter:description" content="Tu tiempo, bajo control." />
+  <meta name="twitter:image"       content="/assets/img/og-image.png" />
+
+  <!-- ── PWA ────────────────────────────────────── -->
+  <meta name="theme-color" content="#0d0f14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PLANIT" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- ── Iconos ─────────────────────────────────── -->
+  <link rel="icon"             type="image/x-icon"  href="/assets/img/icons/favicon.ico" />
+  <link rel="icon"             type="image/png" sizes="32x32"  href="/assets/img/icons/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180"      href="/assets/img/icons/apple-touch-icon.png" />
+
+  <!-- ── Tipografía ─────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+  />
+
+  <!-- ── CSS principal ──────────────────────────── -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <!-- ── Datos estructurados (Schema.org) ──────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PLANIT",
+    "description": "Gestión de horarios y planificación local-first, multiplataforma.",
+    "url": "https://planit.app",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "JVSoftware"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <div id="planit-app">
+
+    <!-- ── Header + nav desktop ───────────────── -->
+    <header class="planit-header" role="banner">
+      <div class="planit-header__marca">
+        <span class="planit-header__logo" aria-label="PLANIT">
+          PLAN<span class="planit-header__logo-acento">IT</span>
+        </span>
+        <time id="planit-fecha-activa" class="planit-header__fecha" datetime=""></time>
+      </div>
+
+      <nav class="planit-nav" role="navigation" aria-label="Vistas principales">
+        <button class="planit-nav__item" data-ruta="/agenda" aria-label="Vista agenda">
+          <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+          </svg>
+          <span>Agenda</span>
+        </button>
+        <button class="planit-nav__item" data-ruta="/semana" aria-label="Vista semana">
+          <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18"/>
+          </svg>
+          <span>Semana</span>
+        </button>
+        <button class="planit-nav__item" data-ruta="/mes" aria-label="Vista mes">
+          <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+          </svg>
+          <span>Mes</span>
+        </button>
+        <button class="planit-nav__item" data-ruta="/horario-u" aria-label="Horario universitario">
+          <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M12 3L2 9l10 6 10-6-10-6z"/>
+            <path d="M2 9v6M22 9v6M6 11.5v5a6 6 0 0012 0v-5"/>
+          </svg>
+          <span>Universidad</span>
+        </button>
+        <button class="planit-nav__item" data-ruta="/tareas" aria-label="Vista tareas">
+          <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+          </svg>
+          <span>Tareas</span>
+        </button>
+        <button class="planit-nav__item" data-ruta="/proyectos" aria-label="Vista proyectos">
+          <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/>
+          </svg>
+          <span>Proyectos</span>
+        </button>
+      </nav>
+
+      <!--
+        FAB del header — solo visible en DESKTOP (≥769px).
+        En móvil se oculta por CSS y aparece #planit-btn-crear-mobile.
+      -->
+      <button
+        id="planit-btn-crear"
+        class="planit-btn-fab"
+        aria-label="Crear nuevo evento"
+        title="Nuevo evento (N)"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- ── Vista principal ────────────────────── -->
+    <main
+      id="planit-vista"
+      class="planit-vista"
+      role="main"
+      aria-live="polite"
+      aria-label="Contenido principal"
+    >
+      <div class="planit-cargando-inicial" aria-label="Cargando PLANIT...">
+        <div class="planit-spinner" role="status"></div>
+      </div>
+    </main>
+
+    <!-- ── Nav móvil ──────────────────────────── -->
+    <!--
+      Solo visible en ≤768px.
+      El placeholder central deja espacio al FAB flotante.
+    -->
+    <nav class="planit-nav-mobile" role="navigation" aria-label="Navegación móvil">
+
+      <button class="planit-nav__item" data-ruta="/agenda">
+        <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+        </svg>
+        <span>Agenda</span>
+      </button>
+
+      <button class="planit-nav__item" data-ruta="/semana">
+        <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        <span>Semana</span>
+      </button>
+
+      <!-- Hueco central para el FAB flotante -->
+      <div class="planit-nav-mobile__fab-placeholder" aria-hidden="true"></div>
+
+      <button class="planit-nav__item" data-ruta="/horario-u">
+        <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M12 3L2 9l10 6 10-6-10-6z"/>
+          <path d="M2 9v6M22 9v6M6 11.5v5a6 6 0 0012 0v-5"/>
+        </svg>
+        <span>Univ.</span>
+      </button>
+
+      <button class="planit-nav__item" data-ruta="/tareas">
+        <svg class="planit-nav__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
+        <span>Tareas</span>
+      </button>
+
+    </nav>
+
+    <!--
+      FAB MÓVIL — independiente del header.
+      Flota sobre la nav inferior, centrado.
+      Solo visible en ≤768px (CSS lo controla).
+      El listener está en main.js → configurarNavegacion().
+    -->
+    <button
+      id="planit-btn-crear-mobile"
+      class="planit-btn-fab planit-btn-fab--mobile"
+      aria-label="Crear nuevo evento"
+      title="Nuevo evento"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+    </button>
+
+  </div><!-- /#planit-app -->
+
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>
